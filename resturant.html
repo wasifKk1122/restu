@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Royal Spice — Premium Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#f97316; --accent2:#ffd166;
+  --glass: rgba(255,255,255,0.04); --white:#eef2f7;
+  --max-width:1100px;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--white);background:linear-gradient(180deg,#071224 0%, #071a2a 100%);}
+.wrap{max-width:var(--max-width);margin:28px auto;padding:20px}
+
+/* Header */
+header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:52px;height:52px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+background:linear-gradient(135deg,var(--accent),#ff6b6b);font-weight:800;color:#08101a;font-size:18px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+h1{font-size:18px;margin:0}
+.tag{font-size:12px;color:var(--muted);margin-top:2px}
+nav{display:flex;gap:12px;align-items:center}
+nav a{color:var(--white);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600;font-size:14px;opacity:0.95}
+nav a:hover{background:rgba(255,255,255,0.04)}
+.cta{background:linear-gradient(90deg,var(--accent),#ff7b50);border:none;padding:8px 12px;border-radius:10px;color:#08101a;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(249,115,22,0.12)}
+.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px;color:var(--white);cursor:pointer}
+
+/* Hero */
+.hero{margin-top:18px;display:grid;grid-template-columns:1fr 420px;gap:18px;align-items:center}
+.hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px;padding:26px;box-shadow:0 12px 40px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+.hero h2{font-size:28px;margin:0 0 8px}
+.hero p{margin:0 0 16px;color:var(--muted)}
+.stats{display:flex;gap:12px;margin-top:12px}
+.stat{background:rgba(255,255,255,0.02);padding:10px;border-radius:10px;text-align:center;min-width:86px}
+.stat strong{display:block;font-size:18px}
+
+/* Search/Filter */
+.search-row{display:flex;gap:8px;align-items:center;margin-top:12px}
+.search-row input,.search-row select{padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white)}
+.search-row .search{flex:1}
+
+/* Menu grid */
+.menu{margin-top:22px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 24px rgba(2,6,23,0.6)}
+.food-img{width:100%;height:170px;object-fit:cover;border-radius:10px}
+.food-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.food-title{font-weight:700}
+.price{font-weight:800;color:var(--accent);font-size:16px}
+.add-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:10px;color:var(--white);cursor:pointer}
+.add-btn:hover{background:rgba(255,255,255,0.02)}
+
+/* Gallery */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}
+.gallery img{width:100%;height:120px;object-fit:cover;border-radius:10px;display:block}
+
+/* About/Contact */
+.two-col{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:20px}
+.about-card{padding:16px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
+.contact-card{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));}
+input[type=text], input[type=email], textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white)}
+textarea{min-height:100px;resize:vertical}
+
+/* Cart drawer */
+.cart-btn{position:fixed;right:22px;bottom:22px;background:linear-gradient(90deg,var(--accent),#ff6b6b);padding:12px 14px;border-radius:12px;border:none;color:#07101a;font-weight:800;box-shadow:0 16px 40px rgba(6,182,212,0.08);cursor:pointer}
+.cart-bubble{background:#08101a;color:var(--accent2);font-weight:700;padding:4px 8px;border-radius:999px;margin-left:8px}
+.drawer{position:fixed;right:18px;bottom:82px;width:360px;max-height:70vh;background:linear-gradient(180deg,#0b1220,#071220);border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 30px 60px rgba(2,6,23,0.6);overflow:auto;display:none}
+.drawer.open{display:block}
+.cart-item{display:flex;gap:10px;align-items:center;padding:8px 6px;border-radius:8px}
+.cart-item img{width:56px;height:48px;object-fit:cover;border-radius:6px}
+.qty{display:flex;gap:6px;align-items:center}
+.small-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:6px;border-radius:6px;cursor:pointer}
+.total-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:700;font-size:16px}
+.checkout{margin-top:10px;background:linear-gradient(90deg,var(--accent),#ff7b50);border:none;padding:10px;border-radius:8px;color:#08101a;font-weight:800;width:100%;cursor:pointer}
+
+/* Footer */
+footer{margin-top:40px;padding:20px;text-align:center;color:var(--muted);font-size:14px}
+
+/* Responsive */
+@media (max-width:1100px){ .grid{grid-template-columns:repeat(2,1fr)} .hero{grid-template-columns:1fr} .two-col{grid-template-columns:1fr} .gallery{grid-template-columns:repeat(3,1fr)} }
+@media (max-width:700px){ .grid{grid-template-columns:1fr} .gallery{grid-template-columns:repeat(2,1fr)} nav{display:none} .mobile-nav{display:flex;gap:8px} .wrap{padding:14px} .drawer{right:12px;width:92vw;bottom:80px} }
+
+/* Animations */
+.fade-in{animation:fadeIn .6s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<!-- Add at the very start of <body> -->
+<!-- Splash Logo -->
+<div id="splashLogo" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#0f1724;display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.5s;">
+  <div style="font-size:48px;font-weight:800;color:#ffd166;text-shadow:0 4px 12px rgba(0,0,0,0.6);">
+    Royal Spice
+  </div>
+</div>
+
+<div class="wrap">
+<header>
+  <div class="brand">
+    <div class="logo">RS</div>
+    <div>
+      <h1>Royal Spice</h1>
+      <div class="tag">Fine Dining • Home Delivery • Catering</div>
+    </div>
+  </div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#menu">Menu</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <button class="cta" id="reserveBtn">Reserve</button>
+  </nav>
+  <div class="mobile-nav" style="display:none"><button class="ghost" id="menuToggle">Menu</button></div>
+</header>
+
+<!-- HERO -->
+<section class="hero-card hero fade-in" id="home">
+  <div>
+    <h2>Experience the Taste of Tradition</h2>
+    <p>Premium ingredients, crafted recipes — signature biryani, karahi, grills & desserts. Dine-in, take-away, or delivery.</p>
+    <div class="search-row">
+      <input class="search" id="searchInput" type="text" placeholder="Search dishes..." oninput="filterMenu()" />
+      <select id="filterSelect" onchange="filterMenu()">
+        <option value="all">All</option>
+        <option value="main">Main</option>
+        <option value="grill">Grill</option>
+        <option value="burger">Burgers</option>
+        <option value="dessert">Dessert</option>
+      </select>
+      <button class="ghost" onclick="resetFilters()">Reset</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>1.2K+</strong><small style="color:var(--muted)">Monthly Orders</small></div>
+      <div class="stat"><strong>4.8★</strong><small style="color:var(--muted)">Avg Rating</small></div>
+      <div class="stat"><strong>10+</strong><small style="color:var(--muted)">Years</small></div>
+    </div>
+  </div>
+  <aside style="border-radius:12px;overflow:hidden">
+    <div style="padding:12px;background:linear-gradient(90deg,#07101a,#0b1220)">
+      <img src="download (1) royal biryani.jpg" alt="featured" style="width:100%;height:220px;object-fit:cover;border-radius:8px" />
+      <div style="margin-top:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-weight:800">Chef's Special — Royal Biryani</div><div style="color:var(--muted);font-size:13px">Slow-cooked with authentic spices</div></div>
+          <div style="text-align:right">
+            <div style="font-weight:800;color:var(--accent);font-size:18px">Rs 450</div>
+            <button class="cta" style="margin-top:8px" onclick="addToCartByData({id:'biryani', title:'Royal Biryani', price:450, img:'https://images.unsplash.com/photo-1600891964599-f61ba0e24092'})">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="menu fade-in">
+  <h3 style="margin:6px 0 12px">Explore Our Menu</h3>
+  <div class="grid" id="menuGrid"></div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <h3 style="margin-bottom:10px">Gallery</h3>
+  <div class="gallery" id="galleryGrid"></div>
+</section>
+
+<!-- About + Contact -->
+<section class="two-col">
+  <div class="about-card">
+    <h3>About Royal Spice</h3>
+    <p>We combine traditional recipes with modern techniques. Fresh ingredients, hand-crafted spice blends, and warm hospitality make every meal memorable.</p>
+    <h4>Opening Hours</h4>
+    <ul style="color:var(--muted);padding-left:18px">
+      <li>Mon - Fri: 11:00 AM - 11:00 PM</li>
+      <li>Sat - Sun: 10:30 AM - 12:00 AM</li>
+    </ul>
+    <h4>Services</h4>
+    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+      <div class="card" style="padding:8px">Dine In</div>
+      <div class="card" style="padding:8px">Takeaway</div>
+      <div class="card" style="padding:8px">Home Delivery</div>
+      <div class="card" style="padding:8px">Catering</div>
+    </div>
+  </div>
+
+  <aside class="contact-card" id="contact">
+    <h3>Contact & Reservation</h3>
+    <p style="color:var(--muted)">Phone: <strong>0300-1234567</strong></p>
+    <p style="color:var(--muted)">Address: Bus Stop Near HBL Bank, Tandoallahyar</p>
+    <input id="cname" type="text" placeholder="Your name" />
+    <input id="cphone" type="text" placeholder="Phone or email" />
+    <textarea id="cmessage" placeholder="Message or reservation details"></textarea>
+    <button class="cta" onclick="sendContact()">Send Message</button>
+    <div id="contactResp" style="margin-top:8px;color:var(--accent2);font-weight:700"></div>
+  </aside>
+</section>
+
+<footer>© <span id="year"></span> Royal Spice • Crafted with love • Follow us on social media</footer>
+
+<!-- Cart & Checkout -->
+<button class="cart-btn" id="cartBtn">Cart <span class="cart-bubble" id="cartCount">0</span></button>
+<div class="drawer" id="cartDrawer">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <strong>Your Order</strong>
+    <button class="ghost" onclick="toggleCart()">Close</button>
+  </div>
+  <div id="cartItems" style="margin-top:10px"></div>
+  <div class="total-row"><div>Total</div><div id="cartTotal">Rs 0</div></div>
+  <button class="checkout" onclick="checkout()">Checkout</button>
+</div>
+
+<!-- Checkout Modal -->
+<div id="checkoutModal" style="display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(2,6,23,0.6);align-items:center;justify-content:center;">
+  <div style="background:linear-gradient(180deg,#07101a,#0b1220);padding:18px;border-radius:12px;width:92%;max-width:560px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 30px 80px rgba(2,6,23,0.7);">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <strong style="font-size:18px">Confirm Your Order</strong>
+      <button class="ghost" onclick="closeCheckout()">Close</button>
+    </div>
+    <div style="margin-top:12px">
+      <textarea id="checkoutSummary" readonly style="width:100%;background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.04);border-radius:8px;padding:8px;min-height:120px"></textarea>
+      <button class="checkout" onclick="confirmOrder()">Confirm Order</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Sample menu
+const MENU=[
+  {id:'biryani',title:'Royal Biryani',price:450,cat:'main',img:'https://images.unsplash.com/photo-1600891964599-f61ba0e24092',desc:'Slow-cooked biryani with tender chicken & aromatic rice.'},
+  {id:'karahi',title:'Mutton Karahi',price:1500,cat:'main',img:'download (1) mutton khrai pic.jpg',desc:'Rich, spicy mutton karahi made to order.'},
+  {id:'zinger',title:'Zinger Burger',price:450,cat:'burger',img:'download (1) zinger barger.jpg',desc:'Crispy chicken fillet, lettuce & signature sauce.'},
+  {id:'tikka',title:'Chicken Tikka',price:650,cat:'grill',img:'download (1) titka piic.jpg',desc:'Juicy tandoori chicken tikka with spices.'},
+  {id:'bbq',title:'BBQ Ribs',price:1200,cat:'grill',img:'images bbq ribs.jpg',desc:'Tender pork ribs glazed with BBQ sauce.'},
+  {id:'brownie',title:'Chocolate Brownie',price:250,cat:'dessert',img:'download (1) brwoni.jpg',desc:'Rich chocolate brownie with ice cream.'}
+];
+
+// Render menu
+const menuGrid=document.getElementById('menuGrid');
+const galleryGrid=document.getElementById('galleryGrid');
+MENU.forEach(item=>{
+  menuGrid.innerHTML+=`<div class="card fade-in">
+    <img src="${item.img}" class="food-img" alt="${item.title}">
+    <div class="food-row">
+      <div class="food-title">${item.title}</div>
+      <div class="price">Rs ${item.price}</div>
+    </div>
+    <p style="color:var(--muted);font-size:13px;margin:4px 0">${item.desc}</p>
+    <button class="add-btn" onclick="addToCartByData({id:'${item.id}',title:'${item.title}',price:${item.price},img:'${item.img}'})">Add to Cart</button>
+  </div>`;
+  galleryGrid.innerHTML+=`<img src="${item.img}" alt="${item.title}" class="fade-in">`;
+});
+// Cart
+let CART={};
+const cartDrawer=document.getElementById('cartDrawer');
+const cartCount=document.getElementById('cartCount');
+const cartItems=document.getElementById('cartItems');
+const cartTotal=document.getElementById('cartTotal');
+
+function addToCartByData(data){
+  if(CART[data.id]){CART[data.id].qty++;}else{CART[data.id]={...data,qty:1}}
+  updateCartUI();
+  toggleCart(true);
+}
+
+function updateCartUI(){
+  cartItems.innerHTML='';
+  let total=0, count=0;
+  for(let key in CART){
+    const i=CART[key];
+    total+=i.price*i.qty; count+=i.qty;
+    cartItems.innerHTML+=`<div class="cart-item">
+      <img src="${i.img}">
+      <div style="flex:1">
+        <div>${i.title}</div>
+        <div class="qty">
+          <button class="small-btn" onclick="updateQty('${i.id}',-1)">-</button>
+          <span>${i.qty}</span>
+          <button class="small-btn" onclick="updateQty('${i.id}',1)">+</button>
+        </div>
+      </div>
+      <div style="margin-left:8px;color:var(--accent)">Rs ${i.price*i.qty}</div>
+      <button class="small-btn" onclick="removeItem('${i.id}')">x</button>
+    </div>`;
+  }
+  cartCount.textContent=count;
+  cartTotal.textContent=`Rs ${total}`;
+}
+
+function updateQty(id,delta){
+  CART[id].qty+=delta;
+  if(CART[id].qty<=0) delete CART[id];
+  updateCartUI();
+}
+
+function removeItem(id){delete CART[id];updateCartUI();}
+
+function toggleCart(forceOpen=false){cartDrawer.classList.toggle('open',forceOpen||!cartDrawer.classList.contains('open'));}
+
+// Checkout
+const checkoutModal=document.getElementById('checkoutModal');
+const checkoutSummary=document.getElementById('checkoutSummary');
+
+function checkout(){
+  if(Object.keys(CART).length===0){alert('Cart is empty!'); return;}
+  let summary='';
+  let total=0;
+  for(let key in CART){
+    const i=CART[key];
+    summary+=`${i.title} x ${i.qty} = Rs ${i.price*i.qty}\n`;
+    total+=i.price*i.qty;
+  }
+  summary+=`\nTotal: Rs ${total}`;
+  checkoutSummary.value=summary;
+  checkoutModal.style.display='flex';
+}
+
+function closeCheckout(){checkoutModal.style.display='none';}
+
+function confirmOrder(){alert('Thank you! Your order is placed.'); CART={}; updateCartUI(); closeCheckout();}
+
+// Search & Filter
+function filterMenu(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  const cat=document.getElementById('filterSelect').value;
+  menuGrid.innerHTML='';
+  MENU.filter(i=>(i.title.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q)) && (cat==='all'||i.cat===cat))
+      .forEach(item=>{
+        menuGrid.innerHTML+=`<div class="card fade-in">
+          <img src="${item.img}" class="food-img" alt="${item.title}">
+          <div class="food-row"><div class="food-title">${item.title}</div><div class="price">Rs ${item.price}</div></div>
+          <p style="color:var(--muted);font-size:13px;margin:4px 0">${item.desc}</p>
+          <button class="add-btn" onclick="addToCartByData({id:'${item.id}',title:'${item.title}',price:${item.price},img:'${item.img}'})">Add to Cart</button>
+        </div>`;
+      });
+}
+function resetFilters(){document.getElementById('searchInput').value='';document.getElementById('filterSelect').value='all';filterMenu();}
+
+// Contact form
+function sendContact(){
+  const name=document.getElementById('cname').value;
+  const phone=document.getElementById('cphone').value;
+  const msg=document.getElementById('cmessage').value;
+  if(!name || !phone || !msg){alert('Please fill all fields'); return;}
+  document.getElementById('contactResp').textContent='Message sent! We will contact you soon.';
+  document.getElementById('cname').value='';document.getElementById('cphone').value='';document.getElementById('cmessage').value='';
+}
+// Splash logo hide after 2 seconds
+window.addEventListener('load', ()=>{
+  setTimeout(()=>{
+    const logo=document.getElementById('splashLogo');
+    logo.style.opacity='0';
+    setTimeout(()=>{ logo.style.display='none'; },500); // fade out and hide
+  },2000);
+});
+
+</script>
+</body>
+</html>
